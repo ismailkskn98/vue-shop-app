@@ -53,13 +53,13 @@ header {
 
 .box {
     position: relative;
-    cursor: pointer;
     color: #374051;
     transition: all .3s ease;
 }
 
 .box svg:hover {
     color: #1874ff;
+    cursor: pointer;
 }
 
 .badge {

@@ -9,8 +9,8 @@
                 <div class="price">100 TL</div>
             </div>
         </div>
-        <div @click="goBasket()" class="context-item complate-box">
-            Sepete Git
+        <div class="complate-box">
+            <span @click="goBasket()">Sepete Git</span>
         </div>
     </div>
 </template>
@@ -43,6 +43,7 @@ export default {
 .context-item {
     display: flex;
     padding: 0 16px;
+    cursor: pointer;
 }
 
 .image {
@@ -82,5 +83,9 @@ export default {
     text-align: center;
     justify-content: center !important;
     color: #1874ff;
+}
+
+.complate-box span {
+    cursor: pointer;
 }
 </style>
