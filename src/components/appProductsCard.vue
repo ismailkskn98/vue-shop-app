@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div @click="onClickBox()" :class="product.id === 1 ? 'boxActive' : ''" class="box">
+        <div @click="onClickBox(product)" :class="product.inBox ? 'boxActive' : ''" class="box">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff9b53"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -24,11 +24,28 @@ export default {
             type: Object
         }
     },
+    data() {
+        return {}
+    },
     methods: {
-        onClickBox() {
-            this.$emit('clickBoxEvent', this.product)
+        onClickBox(product) {
+            const basketArr = [...this.$store.getters.getBasket];
+            const isExistInBasket = basketArr.find(item => item.id === product.id)
+            if (isExistInBasket) {
+                console.log('Sepette');
+                if (this.product.id === product.id) {
+                    product.inBox = false;
+                }
+                this.$store.dispatch('removeBasket', product)
+            } else {
+                console.log('Sepette değil');
+                if (this.product.id === product.id) {
+                    product.inBox = true;
+                }
+                this.$store.dispatch('setBasket', product)
+            }
         }
-    }
+    },
 }
 </script>
 

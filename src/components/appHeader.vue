@@ -1,8 +1,8 @@
 <template>
     <header>
-        <div class="logo">Logo</div>
+        <div @click="$router.push('/')" class="logo">Logo</div>
         <div class="box">
-            <div class="badge">5</div>
+            <div class="badge" v-if="getBasketLength > 0">{{ getBasketLength }}</div>
             <svg @click="onShow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-shopping-cart">
@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import shopContext from '../components/shopContext.vue'
+import shopContext from '../components/shopContext.vue';
+import { mapGetters } from 'vuex';
 export default {
     components: {
         shopContext,
@@ -28,8 +29,16 @@ export default {
     },
     methods: {
         onShow() {
+            // if (this.getBasketLength > 0) {
+            //     this.show = !this.show;
+            // }
             this.show = !this.show;
         }
+    },
+    computed: {
+        ...mapGetters({
+            getBasketLength: 'getBasketLength',
+        })
     }
 }
 </script>

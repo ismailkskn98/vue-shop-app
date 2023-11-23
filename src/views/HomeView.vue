@@ -1,8 +1,9 @@
 <template>
-    <appFilterWrapper :categories="categories" :shortMode="shortMode" @newShort-event="this.shortMode = $event"
-        @activeCategory-event="aktifCategori = $event" />
-    {{ shortMode }}
-    <appProducts :products="products" @clickBoxEvent='onClickBox($event)' />
+    <div class="container">
+        <appFilterWrapper :categories="categories" :shortMode="shortMode" @newShort-event="this.shortMode = $event"
+            @activeCategory-event="aktifCategori = $event" />
+        <appProducts :products="products" />
+    </div>
 </template>
 
 <script>
@@ -18,29 +19,43 @@ export default {
         this.getAllProducts();
     },
     methods: {
-        onClickBox(data) {
-            console.log(data);
-        },
         getProductByCategory(category) {
             fetch(`https://fakestoreapi.com/products/category/${category}?sort=${this.shortMode}`)
                 .then(res => res.json())
                 .then(data => {
+                    data.forEach(item => {
+                        const finded = this.$store.getters.getBasket.find(basketItem => basketItem.id === item.id);
+                        if (finded) {
+                            item.inBox = true;
+                        }
+                    })
                     this.products = data;
                 })
         },
         getAllCategories() {
             fetch('https://fakestoreapi.com/products/categories')
                 .then(res => res.json())
-                .then(json => {
-                    this.categories = json;
+                .then(data => {
+                    data.forEach(item => {
+                        const finded = this.$store.getters.getBasket.find(basketItem => basketItem.id === item.id);
+                        if (finded) {
+                            item.inBox = true;
+                        }
+                    })
+                    this.categories = data;
                 })
         },
         getAllProducts(newShortMode) {
             fetch(`https://fakestoreapi.com/products?sort=${newShortMode}`)
                 .then(res => res.json())
                 .then(data => {
+                    data.forEach(item => {
+                        const finded = this.$store.getters.getBasket.find(basketItem => basketItem.id === item.id);
+                        if (finded) {
+                            item.inBox = true;
+                        }
+                    })
                     this.products = data;
-                    // console.log(data);
                 })
         }
     },
@@ -71,4 +86,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+    padding: 0 64px;
+}
+</style>

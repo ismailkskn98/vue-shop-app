@@ -1,12 +1,13 @@
 <template>
     <div class="context-wrapper">
-        <div class="context-item">
+        <div :class="{ 'border-bottom': ($store.getters.getBasketLength - 1) !== index }" v-for="(item, index) in getBasket"
+            :key="item.id" class="context-item">
             <div class="image">
-                <img src="" alt="" />
+                <img :src="item.image" :alt="item.title" />
             </div>
             <div class="content">
-                <div class="title">Başlık</div>
-                <div class="price">100 TL</div>
+                <div class="title">{{ item.title }}</div>
+                <div class="price">{{ item.price }} TL</div>
             </div>
         </div>
         <div class="complate-box">
@@ -16,12 +17,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     methods: {
         goBasket() {
             this.$router.push('/basket-preview');
             this.$emit('goBasket')
         }
+    },
+    computed: {
+        ...mapGetters({
+            getBasket: 'getBasket',
+        })
     }
 }
 </script>
@@ -36,14 +44,14 @@ export default {
     padding: 8px 0;
     filter: drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.15));
     border-radius: 5px;
-    max-width: 600px;
-    min-width: 250px;
+    min-width: max-content;
 }
 
 .context-item {
     display: flex;
     padding: 0 16px;
     cursor: pointer;
+    margin-bottom: 8px;
 }
 
 .image {
@@ -61,7 +69,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .title {
@@ -87,5 +95,9 @@ export default {
 
 .complate-box span {
     cursor: pointer;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #eff1f3;
 }
 </style>
