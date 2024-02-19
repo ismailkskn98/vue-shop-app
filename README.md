@@ -1,24 +1,8 @@
-# my-shop-app
 
-## Project setup
-```
-npm install
-```
+# Vue.js - Vite - My Shop App
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+npm install vue-router@4 vuex@next core-js
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+https://vue-shop-cd23qpb7f-ismail-keskin-projects.vercel.app/
